@@ -68,7 +68,7 @@ const Sphere3DMain = () => {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [isMouseInside, defaultTilt]);
+  }, [isMouseInside]);
 
   // Handle scroll for vertical movement - using RAF for performance
   useEffect(() => {

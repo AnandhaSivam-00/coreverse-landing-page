@@ -59,8 +59,8 @@ const Career = () => {
           </motion.p>
         </div>
         <SpotlightContainer className='flex flex-row flex-wrap justify-evenly items-center gap-x-5 gap-y-10'>
-          {roleList.map((item, index) => (
-            <Spotlight3DCardEffect className='flex flex-col justify-start items-start p-4 max-w-80 overflow-hidden rounded-3xl'>
+          {roleList.map((item) => (
+            <Spotlight3DCardEffect key={item.roleTitle} className='flex flex-col justify-start items-start p-4 max-w-80 overflow-hidden rounded-3xl'>
               <NavLink to={item.link} className='text-decoration-none'>
                 <div className='w-15 h-15 rounded-full flex justify-center items-center place-self-end hyperlink'>
                   <UpArrowIcon width='28' height='28' />
