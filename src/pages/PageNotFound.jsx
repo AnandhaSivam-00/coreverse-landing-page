@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useTime, useTransform, AnimatePresence } from 'framer-motion';
 
 import PrimaryButtonAnimation from '../components/PrimaryButtonAnimation';
@@ -31,7 +31,54 @@ const pathData = [
 
 const BASE_STROKE_COLOR = "rgba(239, 68, 68, 0.19)";
 const HIGHLIGHT_STROKE_COLOR = "rgba(255, 100, 100, 0.96)";
-const MID_HIGHLIGHT_STROKE_COLOR = "rgba(255, 85, 85, 0.6)";
+// const MID_HIGHLIGHT_STROKE_COLOR = "rgba(255, 85, 85, 0.6)";
+
+const AnimatedPath = ({ d, index, time, introVariants, introComplete }) => {
+    // Breath Animation Logic
+    const breathValue = useTransform(
+        time,
+        t => (1 - Math.sin(index * 0.35 + 0.0022 * t)) / 2
+    );
+    const translateX = useTransform(breathValue, [0, 0.5, 1], [-2, 0, 2]);
+    const translateY = useTransform(breathValue, [0, 0.5, 1], [-2, 0, 2]);
+
+    const animatedStrokeColor = useTransform(
+        breathValue,
+        [0, 0.6, 1],
+        [
+            BASE_STROKE_COLOR,
+            HIGHLIGHT_STROKE_COLOR,
+            BASE_STROKE_COLOR
+        ]
+    );
+
+    const commonPathStyle = {
+        strokeWidth: 1, // Explicitly set strokeWidth
+    };
+
+    return (
+        <motion.path
+            d={d}
+            fill="url(#sphereGradient)"
+            custom={index}
+            initial="hidden"
+            animate="visible"
+            variants={introVariants}
+            style={introComplete ? {
+                ...commonPathStyle,
+                translateX: translateX,
+                translateY: translateY,
+                stroke: animatedStrokeColor,
+            } : {
+                ...commonPathStyle,
+                stroke: animatedStrokeColor
+            }}
+            transition={{
+                duration: 0.5
+            }}
+        />
+    );
+};
 
 const PageNotFound = () => {
     const animationWrapperRef = useRef(null);
@@ -127,64 +174,16 @@ const PageNotFound = () => {
                             </motion.linearGradient>
                         </defs>
                         <AnimatePresence>
-                            {pathData.map((d, i) => {
-                                // Breath Animation Logic
-                                const breathValue = useTransform(
-                                    time,
-                                    t => (1 - Math.sin(i * 0.35 + 0.0022 * t)) / 2
-                                );
-                                const translateX = useTransform(breathValue, [0, 0.5, 1], [-2, 0, 2]);
-                                const translateY = useTransform(breathValue, [0, 0.5, 1], [-2, 0, 2]);
-
-                                // Stroke color transformation for the breath animation
-                                // const animatedStrokeColor = useTransform(breathValue, 
-                                //     [0, 0.2, 0.4, 0.6, 0.8, 1], 
-                                //     [
-                                //         BASE_STROKE_COLOR,                           // Base color
-                                //         `rgba(255, 120, 120, 0.7)`,                  // Start glow
-                                //         HIGHLIGHT_STROKE_COLOR,                      // Peak glow
-                                //         MID_HIGHLIGHT_STROKE_COLOR,                  // Transition
-                                //         `rgba(239, 68, 68, 0.4)`,                    // Fading
-                                //         BASE_STROKE_COLOR                            // Back to base
-                                //     ]
-                                // );
-                                const animatedStrokeColor = useTransform(breathValue,
-                                    [0, 0.6, 1],
-                                    [
-                                        BASE_STROKE_COLOR,
-                                        HIGHLIGHT_STROKE_COLOR,
-                                        BASE_STROKE_COLOR
-                                    ]
-                                );
-
-                                const commonPathStyle = {
-                                    strokeWidth: 1, // Explicitly set strokeWidth
-                                };
-
-                                return (
-                                    <motion.path
-                                        key={i}
-                                        d={d}
-                                        fill="url(#sphereGradient)"
-                                        custom={i}
-                                        initial="hidden"
-                                        animate="visible"
-                                        variants={introVariants}
-                                        style={introComplete ? {
-                                            ...commonPathStyle,
-                                            translateX: translateX,
-                                            translateY: translateY,
-                                            stroke: animatedStrokeColor,
-                                        } : {
-                                            ...commonPathStyle,
-                                            stroke: animatedStrokeColor
-                                        }}
-                                        transition={{
-                                            duration: 0.5
-                                        }}
-                                    />
-                                );
-                            })}
+                            {pathData.map((d, i) => (
+                                <AnimatedPath
+                                    key={i}
+                                    d={d}
+                                    index={i}
+                                    time={time}
+                                    introVariants={introVariants}
+                                    introComplete={introComplete}
+                                />
+                            ))}
                         </AnimatePresence>
                     </motion.svg>
                 </motion.div>

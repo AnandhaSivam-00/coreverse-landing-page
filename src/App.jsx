@@ -5,7 +5,6 @@ import {
   createRoutesFromElements,
   RouterProvider
 } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
 
 import './App.css'
 
@@ -66,11 +65,9 @@ const router = createBrowserRouter(createRoutesFromElements(
 
 function App() {
   return (
-    <AnimatePresence mode='wait' exitBeforeEnter>
-      <Suspense fallback={<Loading />}>
-        <RouterProvider router={router} />
-      </Suspense>
-    </AnimatePresence>
+    <Suspense fallback={<Loading />}>
+      <RouterProvider router={router} />
+    </Suspense>
   )
 }
 
