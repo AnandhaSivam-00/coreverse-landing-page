@@ -56,7 +56,7 @@ const Footer = () => {
                     <h4 className="text-white font-semibold mb-4 ms-7 ml-4 ">Stay Connected</h4>
 
                     <p className="justify-center text-gray-400 mb-4 ml-4">
-                        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Subscribe for the latest tech insights, project updates, and partnership opportunities from Coreverse.
                     </p>
 
                     <div className="ml-4">
@@ -83,7 +83,7 @@ const Footer = () => {
             </div>
 
             <div className="mt-6 border-t border-gray-800 pt-4 text-center text-md text-gray-600">
-                © 2024 <span className="text-white font-semibold">Coreverse Technologies Private Limited.</span> All Rights Reserved.
+                © {new Date().getFullYear()} <span className="text-white font-semibold">Coreverse Technologies Private Limited.</span> All Rights Reserved.
             </div>
         </footer>
     );
