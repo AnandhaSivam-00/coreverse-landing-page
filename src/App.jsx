@@ -44,12 +44,12 @@ const router = createBrowserRouter(createRoutesFromElements(
         path='contact-us'
         element={<ContactUs />} 
       />
-       <Route
-        path='TermsAndConditions'
+      <Route
+        path='t&c'
         element={<TermsAndConditions />} 
       />
       <Route
-        path='PrivacyPolicy'
+        path='privacy-policy'
         element={<PrivacyPolicy />} 
       />
     </Route>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 import { SwiperSlide } from 'swiper/react'
 
 import SectionPill from '../components/SectionPill'
