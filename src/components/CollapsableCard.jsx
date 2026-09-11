@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { CollapseIcon, PlusIcon } from '../assets/Icons/Icons';
+import { PlusIcon } from '../assets/Icons/Icons';
 
 import '../App.css';
 
