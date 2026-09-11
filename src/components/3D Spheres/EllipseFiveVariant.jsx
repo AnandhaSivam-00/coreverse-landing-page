@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { 
     motion, 
     useMotionValue, 
@@ -138,7 +138,7 @@ const EllipseFiveVariant = () => {
                     transform: 'matrix3d(0.613547, 0.354121, -0.705804, 0, 0.0776852, 0.862405, 0.500223, 0, 0.785828, -0.361741, 0.501616, 0, 0, 2.027, 0, 1)'
                 }}
             >
-                {diskData.map((disk, index) => (
+                {diskData.map((disk) => (
                     <motion.div
                         key={disk.id}
                         className={disk.className}
